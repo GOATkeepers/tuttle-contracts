@@ -57,7 +57,7 @@ contract TuttleTribe is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
         for(uint256 i=0; i< 80; i++){
             uint256 tokenId = _tokenIdCounter.current();
             _tokenIdCounter.increment();
-            _safeMint("0x6fBe1EaF0fc2b2D8ffe10Fbe951aF2dA7dA3f1bF", tokenId);
+            _safeMint(0x6fBe1EaF0fc2b2D8ffe10Fbe951aF2dA7dA3f1bF, tokenId);
         }
     }
 
@@ -70,6 +70,13 @@ contract TuttleTribe is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
             _tokenIdCounter.increment();
             _safeMint(msg.sender, tokenId);
             teamMinters[msg.sender] = false;
+            for(uint256 i=0; i< count; i++) {
+                uint256 tokenId = _tokenIdCounter.current();
+                require(tokenId <= _wlSupply);
+                _tokenIdCounter.increment();
+                _safeMint(msg.sender, tokenId);
+            }
+            return;
         }
         else require(msg.value >= basePrice * count, 'INCREASE PAYMENT TO MINT');
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
