@@ -31,6 +31,7 @@ interface IERC165Upgradeable {
 
 // File @openzeppelin/contracts-upgradeable/token/ERC721/IERC721Upgradeable.sol@v4.5.2
 
+
 // OpenZeppelin Contracts v4.4.1 (token/ERC721/IERC721.sol)
 
 pragma solidity ^0.8.0;
@@ -2306,6 +2307,7 @@ contract TuttleTribe is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
             return;
         }
         else require(msg.value >= basePrice * count, 'INCREASE PAYMENT TO MINT');
+        require(count >= 1, 'DONT DRINK UNNEEDED GAS');
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
         require(MerkleProofUpgradeable.verify(proof, merkleRoot, leaf),'NOT ON ALLOWLIST');
         for(uint256 i=0; i< count; i++){
