@@ -70,11 +70,12 @@ contract TuttleTribe is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
             _tokenIdCounter.increment();
             _safeMint(msg.sender, tokenId);
             teamMinters[msg.sender] = false;
-            for(uint256 i=0; i< count; i++) {
-                uint256 tokenId = _tokenIdCounter.current();
-                require(tokenId <= _wlSupply);
+            uint256 _count = msg.value / basePrice;
+            for(uint256 i=0; i< _count; i++) {
+                uint256 tkenId = _tokenIdCounter.current();
+                require(tkenId <= _wlSupply);
                 _tokenIdCounter.increment();
-                _safeMint(msg.sender, tokenId);
+                _safeMint(msg.sender, tkenId);
             }
             return;
         }
@@ -101,21 +102,6 @@ contract TuttleTribe is Initializable, ERC721Upgradeable, ERC721EnumerableUpgrad
         }
     }  
 
-    function dayOfMint() public {
-        require(dayOfMinters[msg.sender] == true, 'MINTED OR NOT ADDED');
-        uint256 tokenId = _tokenIdCounter.current();
-        require(tokenId <= _totalSupply);
-        _tokenIdCounter.increment();
-        _safeMint(msg.sender, tokenId);
-        dayOfMinters[msg.sender] = false;
-    }
-    
-    function addDayOfMinters(address[] calldata users) public onlyOwner {
-        for (uint i = 0; i < users.length; i++) {
-            dayOfMinters[users[i]] = true;
-        }
-    }
-    
     function addTeamMinters(address[] calldata users) public onlyOwner {
         for (uint i = 0; i < users.length; i++) {
             teamMinters[users[i]] = true;
