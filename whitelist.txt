@@ -1,0 +1,4 @@
+curl https://purple-sparkling-darkness.quiknode.pro/4a4dc32810f37822faa829661277307da01de74a/ \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{"jsonrpc":"2.0","method":"qn_fetchNFTs","params":["0x3E099aF007CaB8233D44782D8E6fe80FECDC321e", ["0x74B988156925937bD4E082f0eD7429Da8eAea8Db"]}'
